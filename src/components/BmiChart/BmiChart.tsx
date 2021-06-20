@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { BmiContext } from '../../context/BmiContext';
 
 export default function BmiChart(): JSX.Element {
-    const { data } = useContext(BmiContext);
+    const {
+        store: { data },
+    } = useContext(BmiContext);
 
     return (
         <ResponsiveContainer width="100%" height={250}>
@@ -14,11 +16,12 @@ export default function BmiChart(): JSX.Element {
                         <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
                     </linearGradient>
                 </defs>
-                <XAxis dataKey="name" />
-                <YAxis />
+                <XAxis dataKey="date" />
+                <YAxis dataKey="bmi" />
+                <Tooltip />
                 <Area
                     type="monotone"
-                    dataKey="pv"
+                    dataKey="bmi"
                     stroke="#82ca9d"
                     fillOpacity={1}
                     fill="url(#colorPv)"
