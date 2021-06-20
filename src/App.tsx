@@ -1,16 +1,8 @@
 import React from 'react';
-import {
-    AreaChart,
-    Area,
-    CartesianGrid,
-    XAxis,
-    YAxis,
-    Tooltip,
-    ResponsiveContainer,
-} from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-import Header from './components/Header';
-import BmiForm from './components/BmiForm';
+import Header from './components/Header/Header';
+import BmiForm from './components/BmiForm/BmiForm';
 
 const data = [
     {
@@ -61,7 +53,7 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <Header />
-            <main className="flex flex-row">
+            <main className="flex flex-row flex-wrap">
                 <div className="flex-1">
                     <ResponsiveContainer width="100%" height={250}>
                         <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
@@ -73,7 +65,6 @@ const App: React.FC = () => {
                             </defs>
                             <XAxis dataKey="name" />
                             <YAxis />
-                            <CartesianGrid strokeDasharray="3 3" />
                             <Tooltip />
                             <Area
                                 type="monotone"
