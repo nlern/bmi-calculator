@@ -1,32 +1,36 @@
-import React, { useContext } from 'react';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { FunctionComponent, useContext } from 'react';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { format } from 'date-fns';
 import { BmiContext } from '../../context/BmiContext';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const FormattedDate: FunctionComponent<any> = (props: any) => {
+    const { x, y, payload } = props;
+
+    return (
+        <g transform={`translate(${x},${y})`}>
+            <text x={0} y={0} dy={16} textAnchor="middle" fill="#666">
+                {format(new Date(payload.value), 'dd MMM')}
+            </text>
+        </g>
+    );
+};
 
 export default function BmiChart(): JSX.Element {
     const {
         store: { data },
     } = useContext(BmiContext);
 
-    return (
-        <ResponsiveContainer width="100%" height={250}>
-            <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                <defs>
-                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                    </linearGradient>
-                </defs>
-                <XAxis dataKey="date" />
+    return data && data.length >= 1 ? (
+        <ResponsiveContainer width="100%" height={250} debounce={300}>
+            <LineChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                <XAxis dataKey="date" tick={<FormattedDate />} />
                 <YAxis dataKey="bmi" />
                 <Tooltip />
-                <Area
-                    type="monotone"
-                    dataKey="bmi"
-                    stroke="#82ca9d"
-                    fillOpacity={1}
-                    fill="url(#colorPv)"
-                />
-            </AreaChart>
+                <Line type="monotone" dataKey="bmi" stroke="#8884d8" activeDot={{ r: 8 }} />
+            </LineChart>
         </ResponsiveContainer>
+    ) : (
+        <>Not Enough data</>
     );
 }
