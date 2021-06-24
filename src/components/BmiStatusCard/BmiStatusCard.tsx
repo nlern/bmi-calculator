@@ -37,7 +37,9 @@ export default function BmiStatusCard(): JSX.Element {
                         className={`${status === 'healthy' ? 'text-green-500' : ''} ${
                             status === 'obese' ? 'text-red-500' : ''
                         } ${
-                            ['under weight', 'over weight'].includes(status) ? 'text-green-500' : ''
+                            ['under weight', 'over weight'].includes(status)
+                                ? 'text-yellow-500'
+                                : ''
                         }`}
                     >
                         {currentBmi}
