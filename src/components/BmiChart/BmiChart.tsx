@@ -31,6 +31,8 @@ export default function BmiChart(): JSX.Element {
             </LineChart>
         </ResponsiveContainer>
     ) : (
-        <>Not Enough data</>
+        <div className="flex flex-col capitalize justify-center align-center text-center text-4xl text-gray-300 w-100 h-60">
+            Not enough data
+        </div>
     );
 }
