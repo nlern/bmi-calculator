@@ -43,13 +43,11 @@ export default function BmiForm(): JSX.Element {
     const handleSubmit: FormEventHandler = (e: FormEvent): void => {
         e.preventDefault();
         if (!formValid) {
-            // eslint-disable-next-line no-console
-            console.error('form is not valid');
             return;
         }
         const bmiData = {
-            weight,
-            height,
+            weight: +weight,
+            height: +height,
             date,
         };
         dispatch(new AddBmiAction(bmiData));

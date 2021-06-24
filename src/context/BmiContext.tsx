@@ -1,5 +1,5 @@
 import React, { createContext, FC, useReducer } from 'react';
-import { IAction } from './actions/action.interfce';
+import { IAction } from '../interfaces/action.interfce';
 import { IState, reducer } from './bmi.reducer';
 
 const initialState: IState = {

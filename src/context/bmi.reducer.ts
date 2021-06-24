@@ -1,8 +1,11 @@
-import { IAction } from './actions/action.interfce';
+import { v4 as uuidv4 } from 'uuid';
+import { IBmi } from '../interfaces/bmi.interface';
+import { IAction } from '../interfaces/action.interfce';
 import BmiActionTypes from './actions/action.types';
+import { IBmiForm } from '../interfaces/bmi-form.interface';
 
 export interface IState {
-    data: any[];
+    data: IBmi[];
 }
 
 const calculateBmi = (weight: number, height: number): number => {
@@ -12,9 +15,13 @@ const calculateBmi = (weight: number, height: number): number => {
 export const reducer = (state: IState, { type, payload }: IAction): IState => {
     switch (type) {
         case BmiActionTypes.AddBmi: {
-            const { height, weight, date } = payload;
+            const id = uuidv4();
+            const { height, weight, date } = payload as IBmiForm;
             const bmi = calculateBmi(weight, height);
-            return { ...state, data: [...state.data, { bmi, date: date.toISOString() }] };
+            return {
+                ...state,
+                data: [...state.data, { id, height, weight, bmi, date: date.toISOString() }],
+            };
         }
 
         default:
