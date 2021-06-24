@@ -4,6 +4,7 @@ import { IState, reducer } from './bmi.reducer';
 
 const initialState: IState = {
     data: [],
+    datesMap: new Map<string, number>(),
 };
 
 export const BmiContext = createContext<{ store: IState; dispatch: (action: IAction) => void }>({
