@@ -34,10 +34,11 @@ export default function BmiStatusCard(): JSX.Element {
             <div className="flex flex-col align-center justify-center text-center font-semibold h-full flex-1 text-9xl">
                 {currentBmi > 0 ? (
                     <div
-                        className={`text-${
-                            // eslint-disable-next-line no-nested-ternary
-                            status === 'healthy' ? 'green' : status === 'obese' ? 'red' : 'yellow'
-                        }-500`}
+                        className={`${status === 'healthy' ? 'text-green-500' : ''} ${
+                            status === 'obese' ? 'text-red-500' : ''
+                        } ${
+                            ['under weight', 'over weight'].includes(status) ? 'text-green-500' : ''
+                        }`}
                     >
                         {currentBmi}
                         <div className="text-center uppercase text-base p-2">{status}</div>
